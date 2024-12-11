@@ -1,0 +1,68 @@
+from tkinter import Tk, Label, Entry, Button
+from gtts import gTTS
+from playsound import playsound
+
+
+def play_text():
+    text = text_entry.get()
+    if text:
+        tts = gTTS(
+            text=text,
+            lang='ar'
+        )
+        tts.save("output.mp3")
+        playsound("output.mp3")
+
+
+def clear_text():
+    text_entry.delete(0, 'end')
+
+
+app = Tk()
+app.title("Text to Speech")
+app.geometry("400x200")
+
+Label(
+    app,
+    text="Text to Speech",
+    font=("Arial", 16)
+).pack(pady=10)
+
+text_entry = Entry(
+    app,
+    width=40,
+    font=("Arial", 14)
+)
+text_entry.pack(pady=10)
+
+play_button = Button(
+    app,
+    text="Play",
+    command=play_text,
+    bg="green",
+    fg="white",
+    font=("Arial", 12)
+)
+play_button.pack(side="left", padx=10, pady=20)
+
+exit_button = Button(
+    app,
+    text="Exit",
+    command=app.quit,
+    bg="red",
+    fg="white",
+    font=("Arial", 12)
+)
+exit_button.pack(side="right", padx=10, pady=20)
+
+set_button = Button(
+    app,
+    text="Set",
+    command=clear_text,
+    bg="blue",
+    fg="white",
+    font=("Arial", 12)
+)
+set_button.pack(side="bottom", pady=20)
+
+app.mainloop()
